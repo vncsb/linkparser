@@ -1,4 +1,4 @@
-module github.com/vncsb/link
+module github.com/vncsb/linkparser
 
 go 1.14
 

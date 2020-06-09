@@ -4,10 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/vncsb/linkparser"
-	"golang.org/x/net/html"
 )
 
 type Link struct {
@@ -33,32 +31,4 @@ func main() {
 		fmt.Printf("\tHref: %v\n", l.Href)
 		fmt.Printf("\tText: %v\n", l.Text)
 	}
-}
-
-func parseLinks(n *html.Node, links *[]Link) {
-	if n.Type == html.ElementNode && n.Data == "a" {
-		for _, a := range n.Attr {
-			if a.Key == "href" {
-				*links = append(*links, Link{
-					Href: a.Val,
-					Text: collectText(n),
-				})
-				break
-			}
-		}
-	}
-	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		parseLinks(c, links)
-	}
-}
-
-func collectText(n *html.Node) string {
-	var str strings.Builder
-	if data := strings.TrimSpace(n.Data); n.Type == html.TextNode && data != "" {
-		str.WriteString(data)
-	}
-	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		str.WriteString(collectText(c))
-	}
-	return str.String()
 }
