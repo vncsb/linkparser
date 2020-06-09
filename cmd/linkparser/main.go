@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/vncsb/linkparser"
 	"golang.org/x/net/html"
 )
 
@@ -25,7 +26,7 @@ func main() {
 		return
 	}
 
-	links.
+	links, err := linkparser.Parse(file)
 
 	for i, l := range links {
 		fmt.Printf("Link %v:\n", i)
